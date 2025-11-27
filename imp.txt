@@ -1,0 +1,3 @@
+http://localhost:3000/api/inngest
+
+http://localhost:3000/
