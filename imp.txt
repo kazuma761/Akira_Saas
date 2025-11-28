@@ -7,3 +7,6 @@ http://localhost:3000/
 
 
  npm run dev
+
+ this is important to run and test
+ 
