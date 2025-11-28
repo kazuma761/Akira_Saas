@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+# Akira SaaS
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -38,3 +41,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 =======
 # Akira
 >>>>>>> c50553ab13e4bbe45eff4536473ce5105ff00f2f
+=======
+# Akira_Saas
+>>>>>>> saas/main
