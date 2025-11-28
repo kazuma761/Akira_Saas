@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@clerk/nextjs": "^6.23.0",
@@ -50,17 +50,17 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
-    "inngest": "^1.8.0",
+    "inngest": "^3.46.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.525.0",
-    "next": "15.3.4",
+    "next": "^16.0.5",
     "next-themes": "^0.4.6",
     "prismjs": "^1.3.0",
     "random-word-slugs": "^0.1.7",
     "rate-limiter-flexible": "^7.1.1",
-    "react": "^19.0.0",
+    "react": "^19.2.0",
     "react-day-picker": "^9.8.0",
-    "react-dom": "^19.0.0",
+    "react-dom": "^19.2.0",
     "react-error-boundary": "^6.0.0",
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^3.0.3",
@@ -74,18 +74,18 @@
     "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
+    "@types/node": "^24.10.1",
     "@types/prismjs": "^1.26.5",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9",
-    "eslint-config-next": "15.3.4",
+    "eslint-config-next": "16.0.5",
     "prisma": "^6.10.1",
     "tailwindcss": "^4",
     "tsx": "^4.20.3",
     "tw-animate-css": "^1.3.5",
-    "typescript": "^5"
-  }
+    "typescript": "^5.9.3"
+  },
+  "overrides": {}
 }
