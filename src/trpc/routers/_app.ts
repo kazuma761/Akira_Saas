@@ -23,7 +23,7 @@ export const appRouter = createTRPCRouter({
         data: {
           // FIX: Access `input.data.message` as per your client-side call
           // And map it to `email` if the Inngest function expects `email`
-          email: input.data.message, // Assuming `message` from client maps to `email` in Inngest
+          input: input.data.message, // Assuming `message` from client maps to `email` in Inngest
         }
       });
       // It's good practice to return a meaningful response from a mutation

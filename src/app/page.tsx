@@ -3,11 +3,24 @@
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Input } from "@/components/ui/input"
+import {useTRPC} from "@/trpc/client";
+import {useMutation} from "@tanstack/react-query";
 
 const Page = () => {
   const [isPending, setIsPending] = useState(false);
+  const [value, setValue] = useState("");
 
-  const handleInvoke = async () => {
+  // const trpc = useTRPC();
+  // const invoke =   useMutation(trpc.invoke.mutationOptions({
+  //     onSuccess: () =>{
+  //         toast.success("Background job started")
+  //     }
+
+
+  // }));
+
+  const handleInvoke = async (value: string) => {
     setIsPending(true);
     try {
       const response = await fetch("/api/trigger-hello", {
@@ -16,10 +29,10 @@ const Page = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: "motu@example.com",
+          input: value,
         }),
       });
-
+  
       if (response.ok) {
         toast.success("Background job started successfully!");
       } else {
@@ -45,9 +58,10 @@ const Page = () => {
       <p className="mb-4 text-gray-600">
         Trigger a background Inngest function that says hello after 10 seconds.
       </p>
-
-      <Button disabled={isPending} onClick={handleInvoke}>
-        {isPending ? "Starting..." : "Invoke HelloWorld Job"}
+      <Input value={value} onChange={(e)=>setValue(e.target.value)}/>
+      {/* <Button disabled={invoke.isPending} onClick={() => invoke.mutate({functionName: "background.job", data: {message: value}})}> */}
+      <Button disabled={isPending} onClick={() => handleInvoke(value)}>
+        { isPending ? "Starting..." : "Invoke HelloWorld Job"}
       </Button>
     </div>
   );
