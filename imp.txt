@@ -7,3 +7,5 @@ http://localhost:3000/
 
 
  npm run dev
+
+ e2b template build --name v2 --cmd "/compile_page.sh"
