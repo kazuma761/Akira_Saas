@@ -11,12 +11,12 @@ export const helloWorld = inngest.createFunction(
      const userInput = event.data.input;
 
     const prdAgent = createAgent({
-      name: "product requirement document creator",
-      system: "You are an expert product requirement document creator (prd).  You write readable, concise, product requirement documents.",
+      name: "code-agent",
+      system: "You are an expert next.js senior developer. You write readable, maintainable code. You write simple Next.js & React snippets.",
       model: openai({ model: "gpt-4o" }),
     });
 
-    const {output} = await prdAgent.run(`Write a simple one line product requirement document for the following: ${userInput}`);
+    const {output} = await prdAgent.run(`Write the following snippet: ${userInput}`);
 
     return { output };
 
