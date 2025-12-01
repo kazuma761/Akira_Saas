@@ -48,11 +48,17 @@ export function TRPCReactProvider(
   );
 
   return (
-    <TRPCProvider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
+  //   <TRPCProvider client={trpcClient} queryClient={queryClient}>
+  //     <QueryClientProvider client={queryClient}>
+  //       {props.children}
+  //     </QueryClientProvider>
+  //   </TRPCProvider>
+  // );
+  <QueryClientProvider client={queryClient}>
+      <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
         {props.children}
-      </QueryClientProvider>
-    </TRPCProvider>
+      </TRPCProvider>
+    </QueryClientProvider>
   );
 }
 
