@@ -10,8 +10,10 @@ RUN chmod +x /compile_page.sh
 # Install dependencies and customize sandbox
 WORKDIR /home/user/nextjs-app
 
-RUN npx --yes create-next-app@15.3.3 . --yes
+# Updated to match your Next.js version from package.json
+RUN npx --yes create-next-app@16.0.5 . --yes
 
+# Shadcn (keep same versions unless you want them updated too)
 RUN npx --yes shadcn@2.6.3 init --yes -b neutral --force
 RUN npx --yes shadcn@2.6.3 add --all --yes
 
