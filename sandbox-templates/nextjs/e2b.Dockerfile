@@ -2,10 +2,12 @@
 FROM node:21-slim
 
 # Install curl
-RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+# RUN apt-get update && apt-get install -y curl && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl bash dos2unix && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY compile_page.sh /compile_page.sh
-RUN chmod +x /compile_page.sh
+# RUN chmod +x /compile_page.sh
+RUN dos2unix /compile_page.sh && chmod +x /compile_page.sh
 
 # Install dependencies and customize sandbox
 WORKDIR /home/user/nextjs-app

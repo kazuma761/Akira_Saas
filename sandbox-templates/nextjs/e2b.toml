@@ -1,16 +1,17 @@
 # This is a config for E2B sandbox template.
-# You can use template ID (qmgtqx9tiv2ljn3ywbu3) or template name (s3) to create a sandbox:
+# You can use template ID (16kpb03xoz989hqoehp6) or template name (v6969b) to create a sandbox:
 
 # Python SDK
 # from e2b import Sandbox, AsyncSandbox
-# sandbox = Sandbox.create("s3") # Sync sandbox
-# sandbox = await AsyncSandbox.create("s3") # Async sandbox
+# sandbox = Sandbox.create("v6969b") # Sync sandbox
+# sandbox = await AsyncSandbox.create("v6969b") # Async sandbox
 
 # JS SDK
 # import { Sandbox } from 'e2b'
-# const sandbox = await Sandbox.create('s3')
+# const sandbox = await Sandbox.create('v6969b')
 
-team_id = "f32d0ddf-60c2-400c-b77c-22161b928db9"
+team_id = "944314e0-c304-427a-bbe7-c0bbb6bcd5cd"
+start_cmd = "/bin/bash /compile_page.sh"
 dockerfile = "e2b.Dockerfile"
-template_name = "s3"
-template_id = "qmgtqx9tiv2ljn3ywbu3"
+template_name = "v6969b"
+template_id = "16kpb03xoz989hqoehp6"
