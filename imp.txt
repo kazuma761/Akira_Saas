@@ -7,3 +7,21 @@ http://localhost:3000/
 
 
  npm run dev
+
+
+We have this new folder called "*Sandbox-template*" get inside it 
+
+*E2b commands*
+npm i -g @e2b/cli
+npm i @e2b/code-interpreter
+
+cd sandbox
+cd nextjs
+e2b auth login
+e2b template build --name v1
+
+#after this .toml file make under teh dockerfile 
+
+#go to the website of e2b > team > general > need team id >
+
+e2b template publish -t f32d0ddf-60c2-400c-b77c-22161b928db9
