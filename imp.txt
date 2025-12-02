@@ -19,6 +19,8 @@ cd nextjs
 
 e2b template build --name v1
 
+NEW:- e2b template build --name v6969b --cmd "/bin/bash /compile_page.sh"
+
 #after this .toml file make under teh dockerfile 
 
 #go to the website of e2b > team > general > need team id >
