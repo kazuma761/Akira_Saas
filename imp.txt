@@ -10,19 +10,34 @@ http://localhost:3000/
 
 
 We have this new folder called "*Sandbox-template*" get inside it 
+e2b-sarbojit
 *E2b commands*
 
+
+
+*E2b commands*
+npm i -g @e2b/cli
+main
 npm i @e2b/code-interpreter
 
 cd sandbox
 cd nextjs
+e2b-sarbojit
 
 e2b template build --name v1
 
 NEW:- e2b template build --name v6969b --cmd "/bin/bash /compile_page.sh"
 
+
+e2b auth login
+e2b template build --name v1
+
+main
 #after this .toml file make under teh dockerfile 
 
 #go to the website of e2b > team > general > need team id >
-
+ e2b-sarbojit
 e2b template publish -t "E2B- teamid"
+
+e2b template publish -t f32d0ddf-60c2-400c-b77c-22161b928db9
+main
