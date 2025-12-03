@@ -19,3 +19,14 @@ RUN npx --yes shadcn@2.6.3 add --all --yes
 
 # Move the Nextjs app to the home directory and remove the nextjs-app directory
 RUN mv /home/user/nextjs-app/* /home/user/ && rm -rf /home/user/nextjs-app
+
+# Expose Next.js on port 3000 and start it on sandbox boot
+ENV HOST=0.0.0.0
+ENV PORT=3000
+EXPOSE 3000
+
+# Ensure we run from the app directory
+WORKDIR /home/user
+
+# Start a dev server bound to 0.0.0.0 so E2B can proxy the port
+CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0", "-p", "3000"]
