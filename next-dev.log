@@ -1,0 +1,27 @@
+[baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+   ▲ Next.js 16.0.5 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://192.168.31.37:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 658ms
+ GET / 200 in 1927ms (compile: 1813ms, render: 114ms)
+ GET / 200 in 37ms (compile: 10ms, render: 28ms)
+ PUT /api/inngest 200 in 569ms (compile: 541ms, render: 28ms)
+ PUT /api/inngest 200 in 43ms (compile: 14ms, render: 29ms)
+ PUT /api/inngest 200 in 21ms (compile: 4ms, render: 17ms)
+ PUT /api/inngest 200 in 23ms (compile: 5ms, render: 18ms)
+ POST /api/trigger-hello 200 in 215ms (compile: 203ms, render: 12ms)
+ POST /api/inngest?fnId=akira-background-jobs-motu&stepId=step 206 in 3.0s (compile: 1559µs, render: 3.0s)
+ POST /api/inngest?fnId=akira-background-jobs-motu&stepId=step 206 in 326ms (compile: 4ms, render: 323ms)
+ POST /api/inngest?fnId=akira-background-jobs-motu&stepId=step 200 in 13ms (compile: 3ms, render: 10ms)
+ PUT /api/inngest 200 in 17ms (compile: 5ms, render: 12ms)
+ PUT /api/inngest 200 in 22ms (compile: 4ms, render: 18ms)
+ PUT /api/inngest 200 in 22ms (compile: 6ms, render: 17ms)
+ PUT /api/inngest 200 in 22ms (compile: 5ms, render: 16ms)
+ PUT /api/inngest 200 in 19ms (compile: 3ms, render: 16ms)
+ PUT /api/inngest 200 in 13ms (compile: 3ms, render: 10ms)
+ PUT /api/inngest 200 in 12ms (compile: 2ms, render: 10ms)
+ PUT /api/inngest 200 in 19ms (compile: 3ms, render: 16ms)
+ PUT /api/inngest 200 in 20ms (compile: 4ms, render: 17ms)

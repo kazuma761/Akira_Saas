@@ -1,24 +1,37 @@
-import { Agent, openai, createAgent } from "@inngest/agent-kit";
-
+import { Sandbox } from "@e2b/code-interpreter";
+import { openai, createAgent } from "@inngest/agent-kit";
 import { inngest } from "../client";
-
+import { getSandbox } from "../utils";
 
 export const helloWorld = inngest.createFunction(
-  { id: "motu", name: "Hello World (Motu)" }, // `id` is fine in v2+/v3
+  { id: "motu", name: "Hello World (Motu)" },
   { event: "test/hello.world" },
-  async ({ event }) => {
+  async ({ event, step }) => {
+    const sandboxId = await step.run("get-sandbox-id", async () => {
+      const sandbox = await Sandbox.create("v6969b");
+      return sandbox.sandboxId;
+    });
 
-     const userInput = event.data.input;
+    const userInput = event.data.input;
 
-    const prdAgent = createAgent({
+    const codeAgent = createAgent({
       name: "code-agent",
-      system: "You are an expert next.js senior developer. You write readable, maintainable code. You write simple Next.js & React snippets.",
+      system:
+        "You are an expert next.js senior developer. You write readable, maintainable code. You write simple Next.js & React snippets.",
       model: openai({ model: "gpt-4o" }),
     });
 
-    const {output} = await prdAgent.run(`Write the following snippet: ${userInput}`);
+    const { output } = await codeAgent.run(
+      `Write the following snippet: ${userInput}`
+    );
 
-    return { output };
 
-  },
+    const sandboxUrl = await step.run("get-sandbox-url", async () => {
+      const sandbox = await getSandbox(sandboxId);
+      const host = sandbox.getHost(3000);
+      return `https://${host}`;
+    });
+
+    return { output, sandboxUrl };
+  }
 );
