@@ -1,17 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/inngest/client";
 import prisma from "@/lib/db";
+import { generateSlug } from "random-word-slugs";
 
-export async function GET(_req: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const projectId = searchParams.get("projectId");
+
     const messages = await prisma.message.findMany({
+      where: projectId ? { projectId } : undefined,
       orderBy: {
-        updatedAt: "desc"
+        updatedAt: "desc",
       },
-      //optional to show fragment data (see schema in prisma schema file)
-      // include:{
-      //   fragment: true,
-      // }
+      // optional: include fragment, etc.
+      // include: { fragment: true },
     });
 
     return NextResponse.json({ ok: true, messages });
@@ -30,6 +33,7 @@ export async function POST(req: NextRequest) {
     // const email = body?.email ?? "user@example.com";
 
     const input = body?.input ?? "default value";
+    const projectId: string | undefined = body?.projectId;
 
     if (!input || typeof input !== "string" || input.trim().length === 0) {
       return NextResponse.json(
@@ -38,11 +42,54 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const createdMessage = await prisma.message.create({
+    // 🔹 CASE 1: existing project → behave like messagesRouter.create
+    if (projectId) {
+      const createdMessage = await prisma.message.create({
+        data: {
+          projectId: projectId,
+          content: input,
+          role: "USER",
+          type: "RESULT",
+        },
+      });
+
+      await inngest.send(
+          {
+            name: "code-agent/run",
+            data: {
+              input: input,
+              projectId: projectId,
+            },
+          },
+          {
+            eventKey: process.env.INNGEST_EVENT_KEY,
+          }
+      );
+
+      return NextResponse.json({
+        ok: true,
+        message: createdMessage,
+      });
+    }
+
+    // 🔹 CASE 2: no projectId → behave like projectsRouter.create
+    const createdProject = await prisma.project.create({
       data: {
-        content: input,
-        role: "USER",
-        type: "RESULT",
+        name: generateSlug(2, {
+          format: "kebab",
+        }),
+        messages: {
+          create: {
+            content: input,
+            role: "USER",
+            type: "RESULT",
+          },
+        },
+      },
+      include: {
+        messages: {
+          orderBy: { createdAt: "asc" },
+        },
       },
     });
 
@@ -55,6 +102,7 @@ export async function POST(req: NextRequest) {
       name: "code-agent/run", // Ensure this matches your Inngest event name
       data: {
         input: input,
+        projectId: createdProject.id,
       },
     },
       {
@@ -62,7 +110,10 @@ export async function POST(req: NextRequest) {
       }
     );
 
-    return NextResponse.json({ ok: true,  message: createdMessage,});
+    return NextResponse.json({
+      ok: true,
+      project: createdProject,
+    });
   } catch (error) {
     console.error("Error sending Inngest event:", error);
     return NextResponse.json(

@@ -2,16 +2,17 @@ import {baseProcedure, createTRPCRouter} from "@/trpc/init";
 import {z} from "zod";
 import prisma from "@/lib/db";
 import { inngest } from "@/inngest/client";
+import {generateSlug} from "random-word-slugs";
 
-export const messagesRouter = createTRPCRouter({
+export const projectsRouter = createTRPCRouter({
     getMany: baseProcedure.query(async () => {
-        const messages = await prisma.message.findMany({
+        const projects = await prisma.project.findMany({
             orderBy: {
                 updatedAt: "desc"
             },
         });
 
-        return messages;
+        return projects;
     }),
 
     create: baseProcedure.input(
@@ -19,18 +20,32 @@ export const messagesRouter = createTRPCRouter({
             value: z.string()
                 .min(1,{message:"Prompt is required"})
                 .max(1000,{message:"Prompt is too long"}),
-            projectId: z.string().min(1,{message:"Project ID is required"})
         }),
     )
     .mutation(async ({input}) => {
-        const createdMessage = await prisma.message.create({
+
+        const createdProject = await prisma.project.create({
             data:{
-                projectId : input.projectId,
-                content: input.value,
-                role: "USER",
-                type: "RESULT",
-            },
-        });
+                name: generateSlug(2, {
+                    format: "kebab",
+                }),
+                messages: {
+                    create: {
+                        content: input.value,
+                        role: "USER",
+                        type: "RESULT",
+                    }
+                }
+            }
+        })
+
+        // const createdMessage = await prisma.message.create({
+        //     data:{
+        //         content: input.value,
+        //         role: "USER",
+        //         type: "RESULT",
+        //     },
+        // });
 
         await inngest.send({
             name: "code-agent/run", // Ensure this matches your Inngest event name
@@ -38,11 +53,11 @@ export const messagesRouter = createTRPCRouter({
                 // FIX: Access `input.data.message` as per your client-side call
                 // And map it to `email` if the Inngest function expects `email`
                 input: input.data.message, // Assuming `message` from client maps to `email` in Inngest
-                projectId : input.projectId
+                projectId : createdProject.id,
             }
-        })
+        });
 
-        return createdMessage;
+        return createdProject;
 
     }),
 });

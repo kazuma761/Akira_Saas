@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input"
 import {useTRPC} from "@/trpc/client";
 import {useMutation} from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 
 type Message = {
   id: string;
@@ -18,6 +20,7 @@ type Message = {
 };
 
 const Page = () => {
+  const router = useRouter();
   const [isPending, setIsPending] = useState(false);
   const [value, setValue] = useState("");
 
@@ -79,6 +82,13 @@ const Page = () => {
       });
 
       const body = await response.json().catch(() => ({}));
+
+      if (body.project) {
+        const projectId = body.project.id;
+        toast.success("Project created! Redirecting...");
+        router.push(`/projects/${projectId}`);
+        return; // stop, no need to continue
+      }
 
       if (response.ok) {
         toast.success("Background job started successfully!");
