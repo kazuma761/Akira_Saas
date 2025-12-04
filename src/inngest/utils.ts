@@ -1,25 +1,23 @@
-// src/inngest/utils.ts
 import { Sandbox } from "@e2b/code-interpreter";
+import { AgentResult, TextMessage } from "@inngest/agent-kit";
 
 export async function getSandbox(sandboxId: string) {
-  if (!sandboxId) throw new Error("getSandbox requires a sandboxId");
+  const sandbox = await Sandbox.connect(sandboxId);
+  return sandbox;
+}
 
-  // Try common SDK retrievals if available
-  // @ts-ignore
-  if (typeof (Sandbox as any).get === "function") return await (Sandbox as any).get(sandboxId);
-  // @ts-ignore
-  if (typeof (Sandbox as any).fromId === "function") return await (Sandbox as any).fromId(sandboxId);
-  // @ts-ignore
-  if (typeof (Sandbox as any).fetch === "function") return await (Sandbox as any).fetch(sandboxId);
+export function lastAssistantTextMessageContent(result: AgentResult) {
+  const lastAssistantTextMessageIndex = result.output.findLastIndex(
+    (message) => message.role === "assistant"
+  );
 
-  // Fallback: return a minimal object with getHost(port) that produces the e2b.app style host
-  return {
-    sandboxId,
-    getHost(port: number) {
-      // Return the e2b.app host format: "3000-<sandboxId>.e2b.app"
-      // Make sandboxId safe for hostnames by replacing characters that are not allowed (just in case)
-      const safeId = String(sandboxId).replace(/[^a-zA-Z0-9-]/g, "-");
-      return `${port}-${safeId}.e2b.app`;
-    },
-  };
+  const message = result.output[lastAssistantTextMessageIndex] as
+    | TextMessage
+    | undefined;
+
+  return message?.content
+    ? typeof message.content === "string"
+      ? message?.content
+      : message.content.map((c) => c.text).join("")
+    : undefined;
 }
