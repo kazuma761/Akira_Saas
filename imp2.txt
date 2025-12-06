@@ -1,0 +1,4 @@
+there is something called the prompt.ts file here , which process how will the file or website
+will make or genrate based on our prompt given to the api
+
+just need lot of tweks else everything is working
