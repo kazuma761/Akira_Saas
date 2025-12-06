@@ -12,7 +12,7 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
-# or
+# ornpm install @inngest/agent-kit inngest
 pnpm dev
 # or
 bun dev
@@ -32,6 +32,8 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+npx prisma studio
 
 ## Deploy on Vercel
 

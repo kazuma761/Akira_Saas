@@ -1,0 +1,7 @@
+Messages & Projects we have deployed the prisma and add the messsages history in the localhost:3000
+
+1.npx prisma generate   - Generates the type-safe Prisma Client code.  
+
+2.npx prisma migrate deploy - Applies tracked database changes (migrations) to the live database
+
+3.npx prisma studio - Opens a graphical interface to view and edit your database data.
