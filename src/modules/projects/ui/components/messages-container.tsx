@@ -3,7 +3,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { MessageCard } from "./message-card";
 import { MessageForm } from "./message-form";
 import { useEffect, useRef } from "react";
-import { Fragment } from "../../../../../generate/prisma";
+import { Fragment } from "@/generated/prisma";
 import { MessageLoading } from "./message-loading";
 
 interface Props {
@@ -47,8 +47,23 @@ export const MessagesContainer = ({
     bottomRef.current?.scrollIntoView();
   }, [messages.length]);
 
+  // Guard against empty messages array
+  if (!messages.length) {
+    return (
+      <div className="flex flex-col flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-y-auto flex items-center justify-center">
+          <p className="text-muted-foreground text-sm">No messages yet. Start a conversation!</p>
+        </div>
+        <div className="relative p-3 pt-1">
+          <div className="absolute -top-6 left-0 right-0 h-6 bg-gradient-to-b from-transparent to-background/70 pointer-events-none" />
+          <MessageForm projectId={projectId} />
+        </div>
+      </div>
+    );
+  }
+
   const lastMessage = messages[messages.length - 1];
-  const isLastMessageUser = lastMessage.role === "USER";
+  const isLastMessageUser = lastMessage?.role === "USER";
 
   return (
     <div className="flex flex-col flex-1 min-h-0">

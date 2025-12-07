@@ -3,11 +3,10 @@ import {
   Fragment,
   MessageRole,
   MessageType,
-} from "../../../../../generate/prisma";
+} from "@/generated/prisma";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import Image from "next/image";
-import { Brygada_1918 } from "next/font/google";
 import { ChevronRightIcon, Code2Icon } from "lucide-react";
 
 interface UserMessageProps {

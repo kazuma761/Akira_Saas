@@ -5,12 +5,10 @@ import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { Kbd } from "@/components/ui/kbd";
 import { Button } from "@/components/ui/button";
 import { ArrowUpIcon, Loader2 } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { create } from "node:domain";
 import { toast } from "sonner";
 
 interface Props {
@@ -102,10 +100,10 @@ export const MessageForm = ({ projectId }: Props) => {
           )}
         />
         <div className="flex gap-x-2 items-end justify-between pt-2">
-          <div className="text-muted-foreground font-mono">
-            <Kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
-              <span>&#8984;</span>Enter
-            </Kbd>
+          <div className="text-muted-foreground font-mono text-xs">
+            <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+              <span>⌘</span>Enter
+            </kbd>
             &nbsp;to submit
           </div>
           <Button
