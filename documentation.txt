@@ -4,4 +4,4 @@ Messages & Projects we have deployed the prisma and add the messsages history in
 
 2.npx prisma migrate deploy - Applies tracked database changes (migrations) to the live database
 
-3.npx prisma studio - Opens a graphical interface to view and edit your database data.
+3.  - Opens a graphical interface to view and edit your database data.
