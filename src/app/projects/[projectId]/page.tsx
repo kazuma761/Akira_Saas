@@ -28,12 +28,14 @@ const Page = async ({ params }: PageProps) => {
   );
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <Suspense fallback={<p>Loading Project...</p>}>
-        <ProjectView projectId={projectId} />
-        <ProjectClientUI projectId={projectId} />
-      </Suspense>
-    </HydrationBoundary>
+      <main className="fixed inset-0 overflow-hidden">
+          <HydrationBoundary state={dehydrate(queryClient)}>
+              <Suspense fallback={<p>Loading Project...</p>}>
+                  <ProjectView projectId={projectId}/>
+                  {/* ProjectClientUI removed so only Vibe-Code shows */}
+              </Suspense>
+          </HydrationBoundary>
+      </main>
   );
 };
 
