@@ -53,18 +53,13 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      await inngest.send(
-          {
-            name: "code-agent/run",
-            data: {
-              input: input,
-              projectId: projectId,
-            },
-          },
-          {
-            eventKey: process.env.INNGEST_EVENT_KEY,
-          }
-      );
+      await inngest.send({
+        name: "code-agent/run",
+        data: {
+          input: input,
+          projectId: projectId,
+        },
+      });
 
       return NextResponse.json({
         ok: true,
@@ -104,11 +99,7 @@ export async function POST(req: NextRequest) {
         input: input,
         projectId: createdProject.id,
       },
-    },
-      {
-        eventKey: process.env.INNGEST_EVENT_KEY,
-      }
-    );
+    });
 
     return NextResponse.json({
       ok: true,
