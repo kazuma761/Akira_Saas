@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { inngest } from "@/inngest/client";
 import prisma from "@/lib/db";
 import { generateSlug } from "random-word-slugs";
+import {auth} from "@clerk/nextjs/server";
+
 
 export async function GET(req: NextRequest) {
   try {

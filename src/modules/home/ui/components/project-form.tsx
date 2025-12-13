@@ -15,6 +15,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { PROJECT_TEMPLATES } from "../../constants";
+import {useClerk} from "@clerk/nextjs";
+import { useCurrentTheme } from "@/hooks/use-current-theme";
+import {dark} from "@clerk/themes";
 
 const formSchema = z.object({
   value: z
@@ -30,7 +33,9 @@ const formSchema = z.object({
 export const ProjectForm = () => {
   const router = useRouter();
   const trpc = useTRPC();
+  const clerk = useClerk()
   const queryClient = useQueryClient();
+  const currentTheme = useCurrentTheme();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,8 +52,21 @@ export const ProjectForm = () => {
         //TODO: Invalidate usage status
       },
       onError: (error) => {
-        // Redirect to pricing page if specific error
+
         toast.error(error.message);
+
+        if (error.data?.code === "UNAUTHORIZED") {
+          // router.push("/sign-in");
+          clerk.openSignIn({
+            appearance: {
+              baseTheme: currentTheme === "dark" ? dark : undefined,
+              elements: {
+                cardBox: "border! shadow-none! rounded-lg!",
+              },
+            },
+          });
+        }
+        // Redirect to pricing page if specific error
       },
     }),
   );
